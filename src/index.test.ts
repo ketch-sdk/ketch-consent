@@ -1,4 +1,4 @@
-import getConsent from './index'
+import getConsent, { ConsentStatus } from './index'
 import { getCookie } from '@ketch-com/ketch-cookie'
 
 jest.mock('@ketch-com/ketch-cookie')
@@ -30,8 +30,17 @@ describe('consent', () => {
       expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
     })
     it('returns the value if the cookie value is correct', async () => {
-      mockGetCookie.mockReturnValue(btoa('{"foo": "bar"}'))
-      expect(getConsent(w)).toEqual({ foo: 'bar' })
+      mockGetCookie.mockReturnValue(
+        btoa(
+          // eslint-disable-next-line max-len
+          '{"purposes":{"p1":{"allowed":"true","legalBasisCode":"consent_optout"},"p2":{"allowed":"false","legalBasisCode":"consent_optout"}}}',
+        ),
+      )
+      const expectedConsent: ConsentStatus = {
+        p1: true,
+        p2: false,
+      }
+      expect(getConsent(w)).toEqual(expectedConsent)
       expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
     })
   })
