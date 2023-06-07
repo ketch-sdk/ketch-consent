@@ -1,5 +1,5 @@
 {
-  "name": "@ketch-com/ketch-consent",
+  "name": "@ketch-sdk/ketch-consent",
   "version": "0.0.0",
   "description": "Ketch consent library",
   "main": "./dist/index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ketch-com/ketch-consent.git"
+    "url": "git+https://github.com/ketch-sdk/ketch-consent.git"
   },
   "homepage": "https://github.com/ketch-sdk/ketch-consent",
   "bugs": {
