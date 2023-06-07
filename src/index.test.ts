@@ -19,13 +19,18 @@ describe('consent', () => {
   })
 
   describe('getConsent', () => {
-    it('returns undefined if the cookie does not exist', async () => {
+    it('returns undefined if the cookie return empty', async () => {
       mockGetCookie.mockReturnValue('')
       expect(getConsent(w)).toBeUndefined()
       expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
     })
     it('returns undefined if the cookie value is corrupt', async () => {
       mockGetCookie.mockReturnValue('invalid')
+      expect(getConsent(w)).toBeUndefined()
+      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
+    })
+    it('returns undefined if the cookie value is undefined obj', async () => {
+      mockGetCookie.mockReturnValue('{}')
       expect(getConsent(w)).toBeUndefined()
       expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
     })
