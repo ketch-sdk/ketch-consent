@@ -21,6 +21,7 @@ jobs:
       version-patch: ${{ format('{0}.{1}.{2}', steps.version.outputs.version-major-only, steps.version.outputs.version-minor-only, steps.version.outputs.version-patch-only) }}
     permissions:
       contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,8 +33,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
+          always-auth: true
+          registry-url: https://npm.pkg.github.com/
+          scope: ketch-sdk
           node-version: 16
           cache: "npm"
+          cache-dependency-path: package-lock.json
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup npmrc for ketch-sdk
         uses: conventional-actions/setup-npmrc@v1
         with:
