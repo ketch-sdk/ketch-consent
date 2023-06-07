@@ -13,24 +13,26 @@ export default function getConsent(w: Window): ConsentStatus | undefined {
   if (!value) {
     return
   }
+  let consentObj
   try {
-    const consentObj = JSON.parse(atob(value))
-    if (consentObj && consentObj.purposes) {
-      let consent: ConsentStatus = {}
-      const p = consentObj.purposes
-      for (const purposeCode in p) {
-        if (p[purposeCode]) {
-          const x = p[purposeCode]
-          if (typeof x === 'string') {
-            consent[purposeCode] = x === 'true'
-          } else if (x.allowed) {
-            consent[purposeCode] = x.allowed === 'true'
-          }
-        }
-      }
-      return consent
-    }
+    consentObj = JSON.parse(atob(value))
   } catch (e) {
     return
   }
+  if (!consentObj || !consentObj.purposes) {
+    return
+  }
+  const consent: ConsentStatus = {}
+  const p = consentObj.purposes
+  for (const purposeCode in p) {
+    if (p[purposeCode]) {
+      const x = p[purposeCode]
+      if (typeof x === 'string') {
+        consent[purposeCode] = x === 'true'
+      } else if (x.allowed) {
+        consent[purposeCode] = x.allowed === 'true'
+      }
+    }
+  }
+  return consent
 }
