@@ -8,17 +8,17 @@ export type ConsentStatus = {
 }
 
 /**
- * Get current consent state from _swb_ketch_ cookie.
+ * Get current consent state from _swb_consent_ cookie.
  * @param w The window object
  */
 export default function getConsent(w: Window): ConsentStatus | undefined {
   log.debug('getConsent called')
-  const value = getCookie(w, '_swb_ketch_')
+  const value = getCookie(w, '_swb_consent_')
   if (!value) {
-    log.debug('_swb_ketch_ cookie not found')
+    log.debug('_swb_consent_ cookie not found')
     return
   }
-  log.debug('_swb_ketch_ cookie value :', value)
+  log.debug('_swb_consent_ cookie value :', value)
   let consentObj
   try {
     consentObj = JSON.parse(atob(value))

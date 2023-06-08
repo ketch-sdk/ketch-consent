@@ -22,17 +22,17 @@ describe('consent', () => {
     it('returns undefined if the cookie return empty', async () => {
       mockGetCookie.mockReturnValue('')
       expect(getConsent(w)).toBeUndefined()
-      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
+      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_consent_')
     })
     it('returns undefined if the cookie value is corrupt', async () => {
       mockGetCookie.mockReturnValue('invalid')
       expect(getConsent(w)).toBeUndefined()
-      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
+      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_consent_')
     })
     it('returns undefined if the cookie value is undefined obj', async () => {
       mockGetCookie.mockReturnValue('{}')
       expect(getConsent(w)).toBeUndefined()
-      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
+      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_consent_')
     })
     it('returns the value if the cookie value is correct', async () => {
       mockGetCookie.mockReturnValue(
@@ -46,7 +46,7 @@ describe('consent', () => {
         p2: false,
       }
       expect(getConsent(w)).toEqual(expectedConsent)
-      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_ketch_')
+      expect(mockGetCookie).toHaveBeenCalledWith(w, '_swb_consent_')
     })
   })
 })
