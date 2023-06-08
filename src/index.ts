@@ -1,4 +1,7 @@
 import { getCookie } from '@ketch-com/ketch-cookie'
+import { getLogger } from '@ketch-sdk/ketch-logging'
+
+const log = getLogger('ketch-consent')
 
 export type ConsentStatus = {
   [key: string]: boolean
@@ -9,17 +12,22 @@ export type ConsentStatus = {
  * @param w The window object
  */
 export default function getConsent(w: Window): ConsentStatus | undefined {
+  log.debug('getConsent called')
   const value = getCookie(w, '_swb_ketch_')
   if (!value) {
+    log.debug('_swb_ketch_ cookie not found')
     return
   }
+  log.debug('_swb_ketch_ cookie value :', value)
   let consentObj
   try {
     consentObj = JSON.parse(atob(value))
   } catch (e) {
+    log.debug('failed to parse cookie consent', e)
     return
   }
   if (!consentObj || !consentObj.purposes) {
+    log.debug('cookie consent not found')
     return
   }
   const consent: ConsentStatus = {}
@@ -34,5 +42,6 @@ export default function getConsent(w: Window): ConsentStatus | undefined {
       }
     }
   }
+  log.debug('found cookie consent :', consent)
   return consent
 }
