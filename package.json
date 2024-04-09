@@ -50,7 +50,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@ketch-com/ketch-cookie": "^1.0.5",
+    "@ketch-com/ketch-cookie": "^1.0.6",
     "@ketch-sdk/ketch-logging": "^1.2.1",
     "tslib": "^2.5.0"
   },
