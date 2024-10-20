@@ -36,7 +36,7 @@ jobs:
           always-auth: true
           registry-url: https://npm.pkg.github.com/
           scope: ketch-sdk
-          node-version: 16
+          node-version: 20
           cache: "npm"
           cache-dependency-path: package-lock.json
           token: ${{ secrets.GITHUB_TOKEN }}
